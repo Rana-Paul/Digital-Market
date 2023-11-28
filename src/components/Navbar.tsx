@@ -5,6 +5,7 @@ import MaxWidthWrapper from './MaxwidthWrapper'
 import Image from 'next/image'
 import Logo from "../../public/logo.png"
 import NavItems from './NavItems'
+import Cart from './Cart'
 
 const Navbar = async () => {
 
@@ -76,6 +77,7 @@ const Navbar = async () => {
 
                   <div className='ml-4 flow-root lg:ml-6'>
                     {/* Cart component */}
+                    <Cart />
                   </div>
                 </div>
               </div>
