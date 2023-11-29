@@ -14,6 +14,7 @@ import { useForm } from 'react-hook-form'
 
 import Image from 'next/image'
 import { AuthCredentialsValidator, TAuthCredentialsValidator } from '@/lib/validators/account-cred-validator'
+import { trpc } from '@/trpc/client'
 
 const Page = () => {
 
@@ -24,6 +25,7 @@ const Page = () => {
   } = useForm<TAuthCredentialsValidator>({
     resolver: zodResolver(AuthCredentialsValidator),
   })
+  
 
   const onSubmit = async ({email, password}: TAuthCredentialsValidator) => {
     // signup logic
