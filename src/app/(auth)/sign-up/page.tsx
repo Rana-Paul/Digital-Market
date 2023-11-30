@@ -25,10 +25,13 @@ const Page = () => {
   } = useForm<TAuthCredentialsValidator>({
     resolver: zodResolver(AuthCredentialsValidator),
   })
+
+  const {mutate} = trpc.auth.createPayloadUser.useMutation({})
   
 
   const onSubmit = async ({email, password}: TAuthCredentialsValidator) => {
     // signup logic
+    mutate({email, password})
   }
  
 
