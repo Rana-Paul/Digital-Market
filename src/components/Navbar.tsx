@@ -6,10 +6,13 @@ import Image from 'next/image'
 import Logo from "../../public/logo.png"
 import NavItems from './NavItems'
 import Cart from './Cart'
+import { getServerSideUser } from '@/lib/payload-utils'
+import { cookies } from 'next/headers'
 
 const Navbar = async () => {
-
-  const user = null
+  
+  const nextCookies = cookies()
+  const user = await getServerSideUser(nextCookies)
 
   return (
     <div className='bg-white sticky z-50 top-0 inset-x-0 h-16'>

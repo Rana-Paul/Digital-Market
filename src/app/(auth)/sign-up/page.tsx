@@ -11,12 +11,18 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
-
 import Image from 'next/image'
 import { AuthCredentialsValidator, TAuthCredentialsValidator } from '@/lib/validators/account-cred-validator'
 import { trpc } from '@/trpc/client'
+import {toast} from 'sonner'
+import { ZodError } from 'zod'
+import { useRouter } from 'next/navigation'
+
 
 const Page = () => {
+
+  const router = useRouter()
+
 
   const {
     register,
@@ -26,7 +32,26 @@ const Page = () => {
     resolver: zodResolver(AuthCredentialsValidator),
   })
 
-  const {mutate} = trpc.auth.createPayloadUser.useMutation({})
+  const {mutate} = trpc.auth.createPayloadUser.useMutation({
+    onError: (error) => {
+      if(error.message === 'CONFLICT') {
+        toast('User already exists. Sign in instead')
+        return
+      }
+
+      if (error instanceof ZodError) {
+        toast.error(error.issues[0].message) 
+        return 
+      }
+
+      toast.error('Something went wrong. Please try again after some time.')
+    },
+
+    onSuccess: ({sentToEmail}) => {
+      toast.success(`Verification email sent to ${sentToEmail}.`)
+      router.push('/verify-email?to=' + sentToEmail)
+    }
+  })
   
 
   const onSubmit = async ({email, password}: TAuthCredentialsValidator) => {
