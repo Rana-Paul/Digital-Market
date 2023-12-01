@@ -10,11 +10,12 @@ dotenv.config({
 })
 
 const transporter = nodemailer.createTransport({
-    host: 'smtp-relay.brevo.com',
-    port: 587,
+    host: 'smtp.resend.com',
+    secure: true,
+    port: 465,
     auth: {
-      user: 'ranapaul741223@gmail.com',
-      pass: 'BR0FZa4tdnOT8572',
+      user: 'resend',
+      pass: process.env.RESEND_API_KEY,
     },
   })
 
@@ -44,7 +45,7 @@ export const getPayloadClient = async ({initOptions}: Args = {}) => {
         cached.promise = payload.init({
             email: {
                 transport: transporter,
-                fromAddress: 'ranapaul741223@gmail.com',
+                fromAddress: 'fullstack@ranathedeveloper.site',
                 fromName: 'Digital Market',
               },
             secret: process.env.PAYLOAD_SECRET,
