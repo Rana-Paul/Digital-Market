@@ -49,8 +49,6 @@ const Page = () => {
       onSuccess: async () => {
         toast.success('Signed in successfully')
 
-        
-
         if (origin) {
           router.push(`/${origin}`)
           return
