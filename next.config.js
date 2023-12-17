@@ -11,6 +11,7 @@ const nextConfig = {
 				hostname: "digital-market-production-4041.up.railway.app",
 			},
 		],
+		
 	},
 };
 
