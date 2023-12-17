@@ -40,17 +40,17 @@ export const ReceiptEmail = ({
   return (
     <Html>
       <Head />
-      <Preview>Your DigitalHippo Receipt</Preview>
+      <Preview>Your Digital Market Receipt</Preview>
 
       <Body style={main}>
         <Container style={container}>
           <Section>
             <Column>
               <Img
-                src={`${process.env.NEXT_PUBLIC_SERVER_URL}/hippo-email-sent.png`}
+                src={`${process.env.NEXT_PUBLIC_SERVER_URL}/email-sent.png`}
                 width='100'
                 height='100'
-                alt='DigitalHippo'
+                alt='Digital Market'
               />
             </Column>
 
