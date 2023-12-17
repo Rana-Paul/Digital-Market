@@ -73,6 +73,7 @@ var trpc_1 = require("./trpc");
 var webhooks_1 = require("./webhooks");
 var build_1 = __importDefault(require("next/dist/build"));
 var path_1 = __importDefault(require("path"));
+var url_1 = require("url");
 var createContext = function (_a) {
     var req = _a.req, res = _a.res;
     return ({
@@ -81,7 +82,7 @@ var createContext = function (_a) {
     });
 };
 var start = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var webhookMiddlewaer, payload;
+    var webhookMiddlewaer, payload, cartRouter;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -104,6 +105,19 @@ var start = function () { return __awaiter(void 0, void 0, void 0, function () {
                     })];
             case 1:
                 payload = _a.sent();
+                cartRouter = express_1.default.Router();
+                cartRouter.use(payload.authenticate);
+                cartRouter.get("/", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+                    var request, parseUrl;
+                    return __generator(this, function (_a) {
+                        request = req;
+                        if (!request.user)
+                            return [2 /*return*/, res.redirect('/sign-in?origin=cart')];
+                        parseUrl = (0, url_1.parse)(request.url, true);
+                        return [2 /*return*/, next_utils_1.nextApp.render(req, res, '/cart', parseUrl.query)];
+                    });
+                }); });
+                app.use("/cart", cartRouter);
                 if (process.env.NEXT_BUILD) {
                     app.listen(PORT, function () { return __awaiter(void 0, void 0, void 0, function () {
                         return __generator(this, function (_a) {

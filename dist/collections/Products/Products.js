@@ -46,6 +46,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Products = void 0;
 var config_1 = require("../../config");
@@ -60,12 +69,77 @@ var addUser = function (_a) {
         });
     });
 };
+var isAdminOrHasAdmin = function () { return function (_a) {
+    var _user = _a.req.user;
+    var user = _user;
+    if (!user)
+        return false;
+    if (user.role === 'admin')
+        return true;
+    var userProductsIds = (user.products || []).reduce(function (acc, product) {
+        if (!product)
+            return acc;
+        if (typeof product === 'string') {
+            acc.push(product);
+        }
+        else {
+            acc.push(product.id);
+        }
+        return acc;
+    }, []);
+    return {
+        id: {
+            in: userProductsIds
+        }
+    };
+}; };
+var syncUser = function (_a) {
+    var req = _a.req, doc = _a.doc;
+    return __awaiter(void 0, void 0, void 0, function () {
+        var fullUser, products, allIds_1, createdProductIds, dataUpdate;
+        var _b;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
+                case 0: return [4 /*yield*/, req.payload.findByID({
+                        collection: 'users',
+                        id: (_b = req.user) === null || _b === void 0 ? void 0 : _b.id,
+                    })];
+                case 1:
+                    fullUser = _c.sent();
+                    if (!(fullUser && typeof fullUser === 'object')) return [3 /*break*/, 3];
+                    products = fullUser.products;
+                    allIds_1 = __spreadArray([], ((products === null || products === void 0 ? void 0 : products.map(function (product) { return typeof product === 'object' ? product.id : product; })) || []), true);
+                    createdProductIds = allIds_1.filter(function (id, index) { return allIds_1.indexOf(id) === index; });
+                    dataUpdate = __spreadArray(__spreadArray([], createdProductIds, true), [doc.id], false);
+                    return [4 /*yield*/, req.payload.update({
+                            collection: 'users',
+                            id: fullUser.id,
+                            data: {
+                                products: dataUpdate
+                            }
+                        })];
+                case 2:
+                    _c.sent();
+                    _c.label = 3;
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+};
 exports.Products = {
     slug: 'products',
     admin: {
         useAsTitle: 'name',
     },
+    access: {
+        read: isAdminOrHasAdmin(),
+        update: isAdminOrHasAdmin(),
+        delete: isAdminOrHasAdmin(),
+    },
     hooks: {
+        afterChange: [
+            syncUser
+        ],
         beforeChange: [
             addUser,
             function (args) { return __awaiter(void 0, void 0, void 0, function () {
