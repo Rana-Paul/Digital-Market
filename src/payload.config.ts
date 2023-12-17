@@ -3,7 +3,7 @@ import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { slateEditor } from "@payloadcms/richtext-slate";
 import path from "path";
 import { buildConfig } from "payload/config";
-import Users from "./collections/Users";
+import {Users} from "./collections/Users";
 import dotenv from 'dotenv'
 import { Products } from "./collections/Products/Products";
 import { Media } from "./collections/Media";
