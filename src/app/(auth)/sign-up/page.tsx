@@ -17,24 +17,11 @@ import { trpc } from '@/trpc/client'
 import {toast} from 'sonner'
 import { ZodError } from 'zod'
 import { useRouter } from 'next/navigation'
-import { getServerSideUser } from '@/lib/payload-utils'
-import { useEffect } from 'react'
-import { cookies } from 'next/headers'
 
 
-const Page = async() => {
+const Page = () => {
 
   const router = useRouter()
-
-  const nextCookies = cookies()
-
-  const { user } = await getServerSideUser(nextCookies)
-
-  useEffect(() => {
-    if (user){
-      router.push('/')
-    }
-  }, [])
 
 
   const {

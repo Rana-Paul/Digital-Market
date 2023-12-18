@@ -18,27 +18,16 @@ import {
 } from '@/lib/validators/account-cred-validator'
 import { trpc } from '@/trpc/client'
 import { toast } from 'sonner'
-import { cookies } from 'next/headers'
+import { ZodError } from 'zod'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Image from 'next/image'
-import { useEffect } from 'react'
-import { getServerSideUser } from '@/lib/payload-utils'
 
-const Page = async() => {
+const Page = () => {
   const searchParams = useSearchParams()
   const router = useRouter()
   const isSeller = searchParams.get('as') === 'seller'
   const origin = searchParams.get('origin')
-
-  const nextCookies = cookies()
-
-  const { user } = await getServerSideUser(nextCookies)
-
-  useEffect(() => {
-    if (user){
-      router.push('/')
-    }
-  }, [])
+  
 
   const continueAsSeller = () => {
     router.push('?as=seller')
