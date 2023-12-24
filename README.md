@@ -1,7 +1,7 @@
 
 # Digital Market
 
-This is a Digital Market place where you can buy and sell Digital Asset
+This is a Digital Market, where you can buy and sell Digital Asset
 
 
 ## Getting Started
@@ -10,10 +10,9 @@ To get a local copy up and running, please follow these simple steps.
 Here is what you need to be able to run Digital Market
 
     Node.js (Version: >=18.x)
-    PostgreSQL
 
 
-## Deployment
+## Development
 
 To deploy this project run
 
@@ -29,7 +28,7 @@ To deploy this project run
 Set up your `.env` file
 
 - Duplicate `.env.example` to `.env`
-- add all api keys
+- add all API keys
 
 
 
