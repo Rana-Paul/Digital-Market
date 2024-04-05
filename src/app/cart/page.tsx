@@ -42,6 +42,7 @@ const Page = () => {
       <div className="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
         <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Shopping Cart
+          
         </h1>
 
         <div className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
@@ -143,7 +144,7 @@ const Page = () => {
                         <p className="mt-4 flex space-x-2 text-sm text-gray-700">
                           <Check className="h-5 w-5 flex-shrink-0 text-green-500" />
 
-                          <span>Eligible for instant delivery</span>
+                          <span>Eligible for instant delivery </span>
                         </p>
                       </div>
                     </li>
@@ -153,7 +154,7 @@ const Page = () => {
           </div>
 
           <section className="mt-16 rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8">
-            <h2 className="text-lg font-medium text-gray-900">Order summary</h2>
+            <h2 className="text-lg font-medium text-gray-900">Order Summary</h2>
 
             <div className="mt-6 space-y-4">
               <div className="flex items-center justify-between">
