@@ -38,7 +38,7 @@ const Cart = () => {
 
   return (
     <Sheet>
-      <SheetTrigger className='group -m-2 flex items-center p-2'>
+      <SheetTrigger className='group -m-1 flex items-center p-2'>
         <ShoppingCart
           aria-hidden='true'
           className='h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500'
@@ -63,7 +63,7 @@ const Cart = () => {
                 ))}
               </ScrollArea>
             </div>
-            <div className='space-y-4 pr-6'>
+            <div className='space-y-4 pr-7'>
               <Separator />
               <div className='space-y-1.5 text-sm'>
                 <div className='flex'>
